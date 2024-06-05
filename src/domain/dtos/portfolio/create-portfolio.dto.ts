@@ -4,15 +4,15 @@ import { IsBoolean, IsString } from 'class-validator';
 export class CreatePortfolioDto {
   @IsString()
   @ApiProperty({
-    description: 'The firstname of the portfolio',
-    default: 'ashkan',
+    description: 'The title of the portfolio',
+    default: 'test',
   })
   title: string;
 
   @IsString()
   @ApiProperty({
-    description: 'The lastname of the portfolio',
-    default: 'mahdizadeh',
+    description: 'The description of the portfolio',
+    default: 'test',
   })
   description: string;
 

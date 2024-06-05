@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { CreatePortfolioDto } from 'src/domain/dtos/portfolio/create-portfolio.dto';
 import { UpdatePortfolioDto } from 'src/domain/dtos/portfolio/update-portfolio.dto';
-import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 import { GateGuard } from 'src/core/decorators/roles.decorator';
 import Role from 'src/core/enums/Role';
@@ -36,15 +36,14 @@ export class PortfolioController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, description: 'Success' })
-  @ApiParam({
-    name: 'title',
-    description: 'The title of the portfolio',
+  @ApiQuery({
+    name: 'title'
   })
-  @ApiParam({
-    name: 'status',
-    description: 'The status of the portfolio',
+  @ApiQuery({
+    name: 'status'
   })
   findAll(@Query() filter: FilterPortfolioDto) {
+    console.log(filter)
     return this.portfolioService.findAll(filter);
   }
 

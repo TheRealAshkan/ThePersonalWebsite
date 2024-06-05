@@ -1,7 +1,6 @@
-import { PaginationDto } from 'src/core/utils/pagination';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, Length } from 'class-validator';
 
-export class FilterPortfolioDto extends PaginationDto {
+export class FilterPortfolioDto{
   @IsString()
   @IsOptional()
   title?: string;
@@ -9,4 +8,10 @@ export class FilterPortfolioDto extends PaginationDto {
   @IsBoolean()
   @IsOptional()
   status?: boolean;
+
+  @Length(1, 3)
+  page: number;
+
+  @Length(1, 3)
+  limit: number;
 }

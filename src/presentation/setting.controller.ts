@@ -5,6 +5,7 @@ import {
   Post,
   Body,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
@@ -19,7 +20,19 @@ import Role from 'src/core/enums/Role';
 export class SettingController {
   constructor(private readonly settingService: SettingService) {}
 
-  @Post()
+  @Post('editSetting')
+  @GateGuard(Role.Admin)
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: 201, description: 'Created' })
+  @ApiBody({
+    type: SetSettingDto,
+    description: 'Json structure for user object',
+  })
+  editSetting(@Body() createSettingDto: Array<SetSettingDto> = []) {
+    return this.settingService.editSetting(createSettingDto);
+  }
+
+  @Post('editSettingByKey')
   @GateGuard(Role.Admin)
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 201, description: 'Created' })
@@ -45,7 +58,7 @@ export class SettingController {
     description: 'The key of the setting',
   })
   @ApiResponse({ status: 200, description: 'Success' })
-  findOneByKey( key: string) {
+  findOneByKey(@Param('key') key: string) {
     return this.settingService.findOneByKey(key);
   }
 }

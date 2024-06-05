@@ -18,6 +18,8 @@ async function bootstrap() {
   NestExpressApp.use(
     session({
       secret: 'secret',
+      resave: true,
+      saveUninitialized: true
     }),
   );
   NestExpressApp.use(passport.initialize());

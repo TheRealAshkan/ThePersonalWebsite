@@ -90,13 +90,25 @@ export class UserService {
   }
 
   async update(user_id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.update(+user_id, updateUserDto);
+    const findUser = await this.findOne(user_id);
+    if (findUser) {
+      if (updateUserDto.password && updateUserDto.password != '' && updateUserDto.password !== updateUserDto.confirm) {
+        throw new HttpException('Not equaled password with confirm', 400);
+      }
 
-    if (user.affected === 0) {
-      throw new HttpException('User not found', 404);
+      if (updateUserDto.password)
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+
+      delete updateUserDto.confirm;
+      
+      const user = await this.userRepository.update(+user_id, updateUserDto);
+  
+      if (user.affected === 0) {
+        throw new HttpException('User not found', 404);
+      }
+  
+      return user;
     }
-
-    return user;
   }
 
   async remove(user_id: number) {

@@ -19,11 +19,13 @@ import { ContactController } from './presentation/contact.controller';
 import { Setting } from './domain/entities/setting.entity';
 import { SettingService } from './application/setting.service';
 import { SettingController } from './presentation/setting.controller';
+import { UserLogin } from './domain/entities/user_login.entity';
+import { UserLoginService } from './application/user_login.service';
 
 @Module({
   imports: [
     SqlServerModule,
-    TypeOrmModule.forFeature([User, Setting, Portfolio, Contact]),
+    TypeOrmModule.forFeature([User, Setting, Portfolio, Contact, UserLogin]),
     JwtModule.register({
       secret: 'secret',
       signOptions: { expiresIn: '1d' },
@@ -44,6 +46,7 @@ import { SettingController } from './presentation/setting.controller';
     AuthService,
     UserService,
     JwtStrategy,
+    UserLoginService,
     SettingService,
     PortfolioService,
     ContactService,

@@ -1,7 +1,8 @@
 import { PaginationDto } from 'src/core/utils/pagination';
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
 
-export class FilterUserDto extends PaginationDto {
+export class FilterUserDto{
   @IsString()
   @IsOptional()
   firstName?: string;
@@ -16,4 +17,10 @@ export class FilterUserDto extends PaginationDto {
 
   @IsOptional()
   status?: 0 | 1;
+
+  @Length(1, 3)
+  page: number;
+
+  @Length(1, 3)
+  limit: number;
 }

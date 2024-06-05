@@ -5,11 +5,16 @@ import * as bcrypt from 'bcryptjs';
 import Role from 'src/core/enums/Role';
 import { CreateUserDto } from 'src/domain/dtos/user/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserLogin } from 'src/domain/entities/user_login.entity';
+import { Repository } from 'typeorm';
+import { UserLoginService } from './user_login.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
+    private readonly userLoginService: UserLoginService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -34,10 +39,13 @@ export class AuthService {
     }
 
     const accessToken = this.jwtService.sign({
-      sub: user.id,
+      sub: user.user_id,
       email: user.email,
       role: user.role,
     });
+
+
+    const userLogin = await this.userLoginService.addUserLogin(user.user_id, accessToken);
 
     return accessToken;
   }
@@ -48,8 +56,7 @@ export class AuthService {
       password: registerDto.password,
       confirm: registerDto.confirm,
       role: Role.User,
-      status: true,
-      gender: true,
+      status: true
     };
 
     const user = await this.userService.create(createUser);
@@ -60,8 +67,17 @@ export class AuthService {
       role: Role.User,
     });
 
+
+    const userLogin = await this.userLoginService.addUserLogin(user.user_id, accessToken);
+    console.log(userLogin)
+    
     return accessToken;
 
     
+  }
+
+  async logout(token: string) {
+    const userLogin = await this.userLoginService.logout(token);
+    return userLogin;
   }
 }

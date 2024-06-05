@@ -31,6 +31,38 @@ export class SettingService {
   
     return setting;
   }
+  
+  async editSetting(setSetting: Array<SetSettingDto> = []) {
+    console.log(setSetting)
+    console.log(setSetting.length)
+    if(setSetting.length == 0 || setSetting.length == undefined) {
+      throw new HttpException('FormData Not empty', 400);
+    }
+    // await this.settingRepository.clear();
+    await Promise.all(setSetting.map(async (item, index) => {
+      
+      const setting = await this.settingRepository.findOne({
+          where: {
+            key: item.key,
+          },
+      });
+
+      if(setting) {
+        await this.settingRepository.update(
+          setting.setting_id,
+          { value: item.value },
+        );
+      } else {
+        await this.create(item);
+      }
+    }))
+    
+    
+    return {
+      success: 'saved form'
+    }
+  }
+
 
   async setByKey(setSetting: SetSettingDto) {
     console.log(setSetting);

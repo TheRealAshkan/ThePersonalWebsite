@@ -59,13 +59,6 @@ export class CreateUserDto {
 
   @IsBoolean()
   @ApiProperty({
-    description: 'The gender of the user',
-    default: true,
-  })
-  gender: boolean;
-
-  @IsBoolean()
-  @ApiProperty({
     description: 'The status of the user',
     default: true,
   })

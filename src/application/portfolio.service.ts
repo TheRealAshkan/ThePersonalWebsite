@@ -25,6 +25,7 @@ export class PortfolioService {
   }
 
   async findAll(filter: FilterPortfolioDto) {
+    console.log(filter)
     const query = this.portfolioRepository.createQueryBuilder().select('*');
 
     if (filter.title) {
@@ -38,7 +39,7 @@ export class PortfolioService {
     }
 
     pagination(query, { ...filter });
-
+  
     const portfolios = await query.execute();
 
     return portfolios.length > 0 ? portfolios : false;
@@ -59,8 +60,12 @@ export class PortfolioService {
   }
 
   async update(portfolio_id: number, updatePortfolioDto: UpdatePortfolioDto) {
+    const findPortfolio = await this.findOne(portfolio_id);
+
+    if(!findPortfolio) throw new HttpException('Portfolio not found', 404);
+
     const portfolio = await this.portfolioRepository.update(
-      +portfolio_id,
+      portfolio_id,
       updatePortfolioDto,
     );
 
