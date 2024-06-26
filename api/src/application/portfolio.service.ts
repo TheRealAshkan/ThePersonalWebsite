@@ -20,7 +20,8 @@ export class PortfolioService {
     };
 
     const portfolio = await this.portfolioRepository.create(sendData);
-    this.portfolioRepository.save(portfolio);
+    await this.portfolioRepository.save(portfolio);
+    console.log(portfolio,'tt')
     return portfolio;
   }
 
@@ -83,6 +84,11 @@ export class PortfolioService {
       throw new HttpException('Portfolio not found', 404);
     }
 
+    return portfolio;
+  }
+
+  async total() {
+    const portfolio = await this.portfolioRepository.count();
     return portfolio;
   }
 }

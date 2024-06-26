@@ -83,4 +83,14 @@ export class AuthService {
     const userLogin = await this.userLoginService.logout(token);
     return userLogin;
   }
+
+  async isLogged(token: string) {
+    const userLogin = await this.userLoginService.checkUserIsLogged(token);
+    if(userLogin) {
+      // const user = await this.userService.findOne(userLogin.user_id);
+      return userLogin[0];
+    }
+
+    return false;
+  }
 }

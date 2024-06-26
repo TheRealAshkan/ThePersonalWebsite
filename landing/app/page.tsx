@@ -21,7 +21,6 @@ export default async function Home() {
           />
           
         <Projects portfolios={data.portfolio} />
-        <Contact />
       </div>
     </main>
   );

@@ -5,6 +5,7 @@ import * as session from 'express-session';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as passport from 'passport';
+import * as cookieParser from 'cookie-parser';
 export let NestExpressApp: any = {};
 
 async function bootstrap() {
@@ -24,7 +25,7 @@ async function bootstrap() {
   );
   NestExpressApp.use(passport.initialize());
   NestExpressApp.use(passport.session());
-
+  NestExpressApp.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Api Document')
     .setDescription('The Api Document')

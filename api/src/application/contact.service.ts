@@ -59,4 +59,9 @@ export class ContactService {
 
     return contact;
   }
+
+  async total() {
+    const contact = await this.contactRepository.count();
+    return contact;
+  }
 }

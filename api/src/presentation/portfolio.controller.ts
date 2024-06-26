@@ -41,8 +41,11 @@ export class PortfolioController {
   @ApiQuery({
     name: 'status'
   })
-  findAll(@Query() filter: FilterPortfolioDto) {
-    return this.portfolioService.findAll(filter);
+  async findAll(@Query() filter: FilterPortfolioDto) {
+    return {
+      portfolios : await this.portfolioService.findAll(filter),
+      total : await this.portfolioService.total(),
+    };
   }
 
   @Get(':id')

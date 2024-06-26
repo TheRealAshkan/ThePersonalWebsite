@@ -17,7 +17,7 @@ const Projects = async (portfolios: any) => {
             key={index}
             src={`http://localhost:3210/upload/${item.image}`}
             title={item.title}
-            description={item.title}
+            description={item.description}
           />)}
         
       </div>

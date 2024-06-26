@@ -36,8 +36,11 @@ export class ContactController {
   @GateGuard(Role.Admin)
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 200, description: 'Success' })
-  findAll(@Query() filter: FilterContactDto) {
-    return this.contactService.findAll(filter);
+  async findAll(@Query() filter: FilterContactDto) {
+    return {
+      users : await this.contactService.findAll(filter),
+      total : await this.contactService.total(),
+    };
   }
 
   @Get(':id')

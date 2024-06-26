@@ -23,6 +23,7 @@ import { UserLogin } from './domain/entities/user_login.entity';
 import { UserLoginService } from './application/user_login.service';
 import { LandingController } from './presentation/landing.controller';
 import { MysqlModule } from './infrastructure/mysql.module';
+import { DashboardController } from './presentation/dashboard.controller';
 
 @Module({
   imports: [
@@ -34,8 +35,9 @@ import { MysqlModule } from './infrastructure/mysql.module';
       signOptions: { expiresIn: '1d' },
     }),
     MulterModule.register({
-      dest: './upload',
-    }),
+      dest: './upload', // مسیر ذخیره فایل‌های آپلود شده
+    })
+    
   ],
   controllers: [
     AuthController,
@@ -44,7 +46,8 @@ import { MysqlModule } from './infrastructure/mysql.module';
     PortfolioController,
     ContactController,
     SettingController,
-    LandingController
+    LandingController,
+    DashboardController
   ],
   providers: [
     AuthService,

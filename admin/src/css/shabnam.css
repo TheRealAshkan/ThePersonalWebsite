@@ -1,0 +1,56 @@
+/**
+ * @license
+ *
+ * Font Family: Shabnam
+ * Designed by: Deni Anggara
+ * URL: https://www.fontshare.com/fonts/Shabnam
+ * © 2023 Indian Type Foundry
+ *
+ * Font Styles:
+ * Shabnam Light
+ * Shabnam Light Italic
+ * Shabnam Regular
+ * Shabnam Italic
+ * Shabnam Medium
+ * Shabnam Medium Italic
+ * Shabnam Bold
+ * Shabnam Bold Italic
+ * Shabnam Black
+ * Shabnam Black Italic
+ *
+*/
+
+@font-face {
+    font-family: "Shabnam";
+    src: 
+    url("../fonts/Shabnam-Thin.woff") format("woff"),
+    url("../fonts/Shabnam-Thin.ttf") format("truetype");
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: "Shabnam";
+    src: 
+    url("../fonts/Shabnam.woff") format("woff"),
+    url("../fonts/Shabnam.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: "Shabnam";
+    src: 
+    url("../fonts/Shabnam-Bold.woff") format("woff"),
+    url("../fonts/Shabnam-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+

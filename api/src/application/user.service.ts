@@ -73,7 +73,7 @@ export class UserService {
     }
 
     pagination(query, { ...filter });
-
+    query.orderBy('user_id', 'DESC')
     const users = await query.execute();
     
     return users.length > 0 ? users : false;
@@ -122,6 +122,11 @@ export class UserService {
       throw new HttpException('User not found', 404);
     }
 
+    return user;
+  }
+
+  async total() {
+    const user = await this.userRepository.count();
     return user;
   }
 }

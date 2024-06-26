@@ -44,9 +44,12 @@ export class UserController {
   @ApiQuery({
     name: 'limit'
   })
-  findAll(@Query() filter: FilterUserDto) {
+  async findAll(@Query() filter: FilterUserDto) {
     console.log(filter)
-    return this.userService.findAll(filter);
+    return {
+      users : await this.userService.findAll(filter),
+      total : await this.userService.total(),
+    };
   }
 
   @Get(':id')

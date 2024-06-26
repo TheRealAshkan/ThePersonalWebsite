@@ -11,8 +11,12 @@ export class UserLoginService {
   ) {}
 
   async checkUserIsLogged(token: string) {
-    const userLogin = await this.userLoginRepository.findBy({
-        token: token,
+    const userLogin = await this.userLoginRepository.find({
+      where: {
+        token
+      },
+      select: ['token' , 'user' , 'user_login_id'] ,
+      relations: ["user"]
     })
     return userLogin;
   }
